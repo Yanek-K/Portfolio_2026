@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OutRun CTF — Peter P</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap nav-row">
+    <div class="nav-mark"><span class="dot"></span>Peter P</div>
+    <nav class="links">
+      <a href="index.html#expertise">Expertise</a>
+      <a href="index.html#education">Education</a>
+      <a href="index.html#experience">Experience</a>
+      <a href="index.html#work">Work</a>
+      <a href="index.html#interests">Interests</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- PROJECT HERO -->
+  <section class="project-hero">
+    <a class="back-link" href="index.html#work">← Back to selected work</a>
+    <p class="stack-line">PHP · MySQL · Docker · Cloudflare · Security</p>
+    <h1>OutRun CTF</h1>
+    <p class="lede">A self-hosted capture-the-flag training platform where users register, work through five security challenges of increasing difficulty, and track their progress on a live dashboard and leaderboard — built, secured, and deployed end to end on my own hardware.</p>
+    <div class="actions">
+      <a class="btn primary" href="#" target="_blank">View live project</a>
+      <a class="btn ghost" href="#" target="_blank">View source</a>
+    </div>
+
+    <div class="project-meta">
+      <div class="meta-item">
+        <h4>Role</h4>
+        <p>Solo developer — app, database, security &amp; infrastructure</p>
+      </div>
+      <div class="meta-item">
+        <h4>Timeline</h4>
+        <p>Course project, ongoing maintenance</p>
+      </div>
+      <div class="meta-item">
+        <h4>Stack</h4>
+        <p>PHP, MySQL, Docker, Nginx, Cloudflare</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIMARY SCREENSHOT -->
+  <section class="wide-shot" style="border-top:none;">
+    <div class="shot">
+      [ dashboard screenshot — replace with real image ]
+    </div>
+    <p class="shot-caption">The dashboard: points, solve rate, rank, and challenge progress at a glance.</p>
+  </section>
+
+  <!-- OVERVIEW -->
+  <section class="outcome" style="border-top:none;">
+    <h2>Overview</h2>
+    <p>OutRun CTF is a multi-page web application that simulates a simplified capture-the-flag training environment. Users register, log in, and work through five challenges covering common introductory security concepts — from inspecting hidden HTML to reading HTTP response headers. A dashboard tracks each user's points, solve rate, and global rank in real time.</p>
+    <p>The goal wasn't just to build a working app, but to demonstrate the full set of concepts behind a real dynamic web application: authentication, session management, secure database interaction, and a deliberately structured codebase — not just a collection of scripts that happen to work.</p>
+  </section>
+
+  <!-- FEATURE 1: Authentication & security -->
+  <section class="feature-block">
+    <div class="feature-media">
+      <div class="shot">
+        [ login / registration screenshot ]
+      </div>
+      <p class="shot-caption">Registration and login, backed by hashed credentials and server-side sessions.</p>
+    </div>
+    <div class="feature-text">
+      <h3>Application security</h3>
+      <p>Security was treated as a first-class requirement, not an afterthought — every form and every user input is handled with a specific attack in mind.</p>
+      <ul>
+        <li>Passwords hashed with bcrypt via <code>password_hash()</code>, verified with <code>password_verify()</code></li>
+        <li>All queries run through PDO prepared statements to prevent SQL injection</li>
+        <li>Output escaped with <code>htmlspecialchars()</code> to prevent XSS</li>
+        <li>CSRF tokens on every form — login, registration, and flag submission</li>
+        <li>Session ID regenerated with <code>session_regenerate_id()</code> after login to prevent session fixation</li>
+        <li>Flag comparison uses <code>hash_equals()</code> for constant-time comparison, never <code>==</code></li>
+        <li>Rate limiting on login and flag submission (e.g. 10 wrong attempts per challenge per 5 minutes)</li>
+        <li>Flags are validated and stored server-side only — never exposed in page source or client-side JS</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FEATURE 2: Dashboard & progress tracking -->
+  <section class="feature-block reverse">
+    <div class="feature-media">
+      <div class="shot">
+        [ challenge grid / leaderboard screenshot ]
+      </div>
+      <p class="shot-caption">The challenge grid and global leaderboard, both pulled live from the database.</p>
+    </div>
+    <div class="feature-text">
+      <h3>Dashboard &amp; progress tracking</h3>
+      <p>After logging in, users land on a dashboard that pulls everything dynamically from the database — no hardcoded stats. It's built to give an at-a-glance read on where someone stands, both against themselves and against everyone else.</p>
+      <ul>
+        <li>Total points, challenges solved, and total attempts</li>
+        <li>A progress bar and challenge grid showing solved vs. unsolved</li>
+        <li>Global rank and a live leaderboard</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FEATURE 3: The challenges -->
+  <section class="feature-block">
+    <div class="feature-media">
+      <div class="shot">
+        [ individual challenge page screenshot ]
+      </div>
+      <p class="shot-caption">Each challenge presents a problem, a flag submission form, and a hint on request.</p>
+    </div>
+    <div class="feature-text">
+      <h3>Five challenges, five techniques</h3>
+      <p>Each challenge teaches a specific, real-world reconnaissance or inspection skill. Submitted flags are validated server-side, and a correct submission is recorded against that user's account.</p>
+      <ul>
+        <li><strong>What Lies Beneath</strong> (easy) — finding a flag hidden in an HTML comment</li>
+        <li><strong>No Robots</strong> (easy) — reconnaissance via <code>robots.txt</code></li>
+        <li><strong>Sweet Tooth</strong> (easy) — inspecting browser cookies</li>
+        <li><strong>Encoded Secrets</strong> (medium) — decoding a Base64-encoded flag</li>
+        <li><strong>Hidden in Transit</strong> (medium) — reading HTTP response headers</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="outcome">
+    <h2>Architecture</h2>
+    <p>The application follows an MVC structure. The Model layer handles all database interaction through PDO with prepared statements. The View layer manages the interface, built on a consistent design system of custom CSS variables rather than a framework. The Controller layer processes user input — form submissions, flag checks, session state — and ties the two together.</p>
+    <p>The database is normalized across six tables: <code>users</code>, <code>challenges</code>, <code>categories</code>, <code>challenge_categories</code>, <code>user_challenges</code>, and <code>countries</code> — separating user data, challenge content, categorization, and per-user progress so each piece can grow independently.</p>
+    <div class="shot" style="margin-top:24px;">
+      [ database diagram — replace with real ER diagram image ]
+    </div>
+    <p class="shot-caption">Entity-relationship diagram of the six-table schema.</p>
+  </section>
+
+  <!-- INFRASTRUCTURE -->
+  <section class="feature-block">
+    <div class="feature-media">
+      <div class="shot">
+        [ server / docker ps screenshot ]
+      </div>
+      <p class="shot-caption">Containers running on the physical server, confirmed via <code>docker ps</code>.</p>
+    </div>
+    <div class="feature-text">
+      <h3>Self-hosted infrastructure</h3>
+      <p>OutRun CTF isn't hosted on a cloud VM — it runs on a Dell OptiPlex 390 I set up as a dedicated home server, upgraded with additional RAM and wired directly into the network. The whole deployment is managed through Docker.</p>
+      <ul>
+        <li>Ubuntu Server with Docker and Docker Compose, containers set to <code>restart: unless-stopped</code></li>
+        <li>Docker enabled to start on boot, verified after a full reboot test</li>
+        <li>Nginx reverse proxy in front of the app containers</li>
+        <li>Deploys by pulling from GitHub and running <code>docker compose up -d</code> over SSH</li>
+        <li>Blog posts published through the same headless SSH-key setup, no GUI required</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- NETWORKING & DOMAIN -->
+  <section class="feature-block reverse">
+    <div class="feature-media">
+      <div class="shot">
+        [ Cloudflare dashboard screenshot ]
+      </div>
+      <p class="shot-caption">Cloudflare in front of the domain — DNS, proxying, and SSL.</p>
+    </div>
+    <div class="feature-text">
+      <h3>Networking &amp; domain</h3>
+      <p>Running on a home connection means the network layer needed as much attention as the app itself: a stable path from a public domain name down to a single machine on a residential IP.</p>
+      <ul>
+        <li>Registered domain, DHCP reservation for a stable local IP, ports 80/443 forwarded to the server</li>
+        <li>Cloudflare in front of the domain for DNS, free SSL, and DDoS protection — and to keep the home IP hidden</li>
+        <li>A DDNS script keeps Cloudflare's DNS record updated automatically if the home IP changes</li>
+        <li>Self-signed certificate generated with OpenSSL and configured in Apache, with Cloudflare set to Full (not Flexible) SSL mode end-to-end</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- OPERATIONS & HARDENING -->
+  <section class="outcome">
+    <h2>Operations &amp; hardening</h2>
+    <p>Once the app was live, the focus shifted to keeping it that way — locking the server down, watching for downtime, and checking the site the way an attacker would rather than assuming it was secure.</p>
+    <ul style="margin:0 0 0 18px; padding:0; color:var(--slate); font-size:15px; line-height:1.9;">
+      <li>UFW firewall restricted to ports 22, 80, and 443, with Cloudflare's IP ranges whitelisted</li>
+      <li>fail2ban running against brute-force attempts</li>
+      <li>Docker containers confirmed not running as root</li>
+      <li>Apache and PHP version headers disabled (<code>ServerTokens Prod</code>, <code>expose_php = Off</code>), with generic error messages in production</li>
+      <li>Custom 404 page styled to match the site</li>
+      <li>Scanned the live site with OWASP ZAP, Nikto, and WhatWeb to check for vulnerabilities and exposed technologies</li>
+      <li>Automated MySQL backups via cron job</li>
+      <li>Uptime Robot monitoring the domain with email alerts on downtime</li>
+      <li>Sitemap submitted to Google Search Console</li>
+    </ul>
+  </section>
+
+  <!-- SECURITY WRITING -->
+  <section class="outcome">
+    <h2>Security research &amp; writing</h2>
+    <p>Alongside the platform itself, I wrote a set of technical posts covering the concepts the challenges are built on:</p>
+    <ul style="margin:0 0 0 18px; padding:0; color:var(--slate); font-size:15px; line-height:1.9;">
+      <li>An introduction to Nmap and network scanning fundamentals</li>
+      <li>Reconnaissance techniques for web applications</li>
+      <li>Core networking concepts every security learner should know</li>
+      <li>Setting up a personal penetration-testing lab</li>
+    </ul>
+  </section>
+
+  <!-- OUTCOME -->
+  <section class="outcome">
+    <h2>Outcome</h2>
+    <p>The finished platform meets the full scope of the original proposal: secure authentication, a normalized database, an MVC codebase, five working challenges, and live progress tracking — running end to end on hardware I set up and manage myself, rather than a managed cloud platform. Handling the server, the network, and the security hardening alongside the application code meant thinking about the project as a whole system, not just the parts that live in a code editor.</p>
+  </section>
+
+  <!-- NEXT PROJECT -->
+  <div class="next-project">
+    <div>
+      <span class="label">Next project</span>
+      <a href="more-rocks.html">More Rocks →</a>
+    </div>
+  </div>
+
+</main>
+
+<footer class="wrap">
+  <span>Peter P — backend, frontend &amp; infrastructure</span>
+  <span><a href="mailto:hello@peterp.dev">hello@peterp.dev</a> · <a href="#">GitHub</a></span>
+</footer>
+
+</body>
+</html>
