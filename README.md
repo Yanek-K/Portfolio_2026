@@ -10,14 +10,13 @@ A multi-page static site: a homepage covering expertise, education, experience, 
 
 ## Structure
 
-index.html — homepage
-outrun-ctf.html — OutRun CTF project page
-more-rocks.html — More Rocks project page
-premium-cameras.html — Premium Cameras project page
-project-template.html — template for adding new project pages
-styles.css — shared stylesheet across all pages
-script.js — click-to-copy email functionality
-assets/ — favicons, OG image, screenshots
+- index.html — homepage
+- outrun-ctf.html — OutRun CTF project page
+- more-rocks.html — More Rocks project page
+- premium-cameras.html — Premium Cameras project page
+- project-template.html — template for adding new project pages
+- styles.css — shared stylesheet across all pages
+- script.js — click-to-copy email functionality
 
 
 ## Features
