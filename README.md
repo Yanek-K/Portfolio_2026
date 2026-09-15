@@ -39,7 +39,7 @@ Then visit `http://localhost:8000`.
 
 ## Deployment
 
-Static hosting — the entire folder (HTML files, `styles.css`, `script.js`, and `assets/`) needs to be deployed together, since pages reference these as relative paths.
+Static hosting — the entire folder (HTML files, `styles.css`, `script.js`) needs to be deployed together, since pages reference these as relative paths.
 
 ## Author
 
