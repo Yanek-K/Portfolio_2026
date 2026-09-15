@@ -73,7 +73,7 @@
     color:var(--slate);
     padding:0;
   }
-  .expertise-cell .tag-pill::after{ content:" · "; color:var(--line); }
+  .expertise-cell .tag-pill::after{ content:" · "; color:var(--green); }
   .expertise-cell .tag-pill:last-child::after{ content:""; }
 
   /* WHERE I HAVE WORKED - table-like list, dense like original */
@@ -371,4 +371,36 @@
   .project-meta .meta-item:first-child{ border-top:none; padding-top:20px; }
   .feature-block, .feature-block.reverse{ grid-template-columns:1fr; }
   .feature-block.reverse .feature-media, .feature-block.reverse .feature-text{ order:initial; }
+}
+
+.copy-email {
+  transition: color .15s ease;
+}
+
+.copy-email:hover {
+  color: var(--green);
+}
+
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--navy);
+  border-radius: 3px;
+  color: var(--navy);
+  transition: background .15s ease, color .15s ease;
+}
+
+.icon-btn:hover {
+  background: var(--navy);
+  color: #fff;
+}
+
+.icon-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: currentColor;
+  display: block;
 }
